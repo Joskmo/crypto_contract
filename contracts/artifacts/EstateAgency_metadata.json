@@ -1,0 +1,191 @@
+{
+	"compiler": {
+		"version": "0.8.26+commit.8a97fa7a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "estateID",
+						"type": "uint256"
+					}
+				],
+				"name": "banEstate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "info",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "area",
+						"type": "uint256"
+					}
+				],
+				"name": "createEstate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "estateID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"name": "createSale",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "estates",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "info",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "area",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "is_banned",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "on_sale",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "sales",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "EstateID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "seller",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "estateID",
+						"type": "uint256"
+					}
+				],
+				"name": "unbanEstate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Estate.sol": "EstateAgency"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Estate.sol": {
+			"keccak256": "0x0ff3a4178e7a6758c119c445f6abbb323c892a4f419df95c3aba247792669d10",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://8359fc895ea2591c3e258c8dd8d913a194ef649ea77f57f730f9a2c4e471e46a",
+				"dweb:/ipfs/QmaxRUiREzMVYZwXWhxmhXSVsaukvdxu67jz1GeY7aQ4Kk"
+			]
+		}
+	},
+	"version": 1
+}
