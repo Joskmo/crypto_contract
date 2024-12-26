@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
 
-
 pragma solidity >=0.8.2 <0.9.0;
 
 contract EstateAgency {
@@ -10,6 +9,7 @@ contract EstateAgency {
         uint area;
         bool is_banned;
         bool on_sale;
+        bool on_gift;
     }
 
     struct Sale {
@@ -21,8 +21,16 @@ contract EstateAgency {
         uint[] bids;
     }
 
+    struct Gift {
+        uint estateID;
+        address owner;
+        address recipient;
+        bool is_active;
+    }
+
     Estate[] public estates;
     Sale[] public sales;
+    Gift[] public gifts;
 
     address admin;
 
@@ -46,7 +54,7 @@ contract EstateAgency {
         require(owner != address(0), "Invalid address");
         require(area > 0, "Area must be positive");
 
-        estates.push(Estate(owner, info, area, false, false));
+        estates.push(Estate(owner, info, area, false, false, false));
     }
 
     function banEstate(uint estateID) public isAdmin {
@@ -72,7 +80,7 @@ contract EstateAgency {
         estates[estateID].on_sale = true;
     }
 
-    // Buyes functions
+    // Buyers functions
     function makeBid(uint saleID) public payable {
         require(saleID < sales.length, "Wrong saleID");
         require(msg.value >= sales[saleID].price, "Price is too low");
@@ -80,7 +88,49 @@ contract EstateAgency {
         require(sales[saleID].newOwner == address(0), "Sale is closed");
         
     }
-}
 
-// storage - для хранилища контрактов
-// memory - для локальной памяти
+    // Gift functions
+    function createGift(uint estateID, address recipient) public isOwner(estateID) {
+        require(!estates[estateID].is_banned, "Estate is banned");
+        require(!estates[estateID].on_sale, "Estate is on sale");
+        require(!estates[estateID].on_gift, "Estate is already in gift process");
+        require(recipient != address(0), "Invalid recipient");
+
+        gifts.push(Gift(estateID, msg.sender, recipient, true));
+        estates[estateID].on_gift = true;
+    }
+
+    function acceptGift(uint giftID) public {
+        require(giftID < gifts.length, "Invalid giftID");
+        Gift storage gift = gifts[giftID];
+
+        require(gift.is_active, "Gift is not active");
+        require(gift.recipient == msg.sender, "Not the recipient");
+
+        estates[gift.estateID].owner = msg.sender;
+        estates[gift.estateID].on_gift = false;
+        gift.is_active = false;
+    }
+
+    function declineGift(uint giftID) public {
+        require(giftID < gifts.length, "Invalid giftID");
+        Gift storage gift = gifts[giftID];
+
+        require(gift.is_active, "Gift is not active");
+        require(gift.recipient == msg.sender, "Not the recipient");
+
+        estates[gift.estateID].on_gift = false;
+        gift.is_active = false;
+    }
+
+    function cancelGift(uint giftID) public {
+        require(giftID < gifts.length, "Invalid giftID");
+        Gift storage gift = gifts[giftID];
+
+        require(gift.is_active, "Gift is not active");
+        require(gift.owner == msg.sender, "Not the owner");
+
+        estates[gift.estateID].on_gift = false;
+        gift.is_active = false;
+    }
+}

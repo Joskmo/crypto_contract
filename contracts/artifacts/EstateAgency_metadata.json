@@ -14,11 +14,37 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "giftID",
+						"type": "uint256"
+					}
+				],
+				"name": "acceptGift",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "estateID",
 						"type": "uint256"
 					}
 				],
 				"name": "banEstate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "giftID",
+						"type": "uint256"
+					}
+				],
+				"name": "cancelGift",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -54,12 +80,43 @@
 						"type": "uint256"
 					},
 					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					}
+				],
+				"name": "createGift",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "estateID",
+						"type": "uint256"
+					},
+					{
 						"internalType": "uint256",
 						"name": "price",
 						"type": "uint256"
 					}
 				],
 				"name": "createSale",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "giftID",
+						"type": "uint256"
+					}
+				],
+				"name": "declineGift",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -98,9 +155,61 @@
 						"internalType": "bool",
 						"name": "on_sale",
 						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "on_gift",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "gifts",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "estateID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "is_active",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "saleID",
+						"type": "uint256"
+					}
+				],
+				"name": "makeBid",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -120,7 +229,7 @@
 					},
 					{
 						"internalType": "address",
-						"name": "seller",
+						"name": "owner",
 						"type": "address"
 					},
 					{
@@ -179,11 +288,11 @@
 	},
 	"sources": {
 		"contracts/Estate.sol": {
-			"keccak256": "0x0ff3a4178e7a6758c119c445f6abbb323c892a4f419df95c3aba247792669d10",
+			"keccak256": "0x3eb504ce2e835af297875f2dd423721e1840fc04c2ac084bf66a394ac42762df",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://8359fc895ea2591c3e258c8dd8d913a194ef649ea77f57f730f9a2c4e471e46a",
-				"dweb:/ipfs/QmaxRUiREzMVYZwXWhxmhXSVsaukvdxu67jz1GeY7aQ4Kk"
+				"bzz-raw://fb508e737f3b563c070660d3fbaa41fd751cca154112fb0b324eee187bb88190",
+				"dweb:/ipfs/QmVGhRZ2tZBLbRf5vhfMrJuJniLbHF7zL3XEYDgEScrvMT"
 			]
 		}
 	},
