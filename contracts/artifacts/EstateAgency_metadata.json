@@ -224,7 +224,7 @@
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "EstateID",
+						"name": "estateID",
 						"type": "uint256"
 					},
 					{
@@ -288,11 +288,11 @@
 	},
 	"sources": {
 		"contracts/Estate.sol": {
-			"keccak256": "0x3eb504ce2e835af297875f2dd423721e1840fc04c2ac084bf66a394ac42762df",
+			"keccak256": "0xa177f277659a55f13ce04b1ed43c72a563a571b7be3a1b038e73ddd06da90c03",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://fb508e737f3b563c070660d3fbaa41fd751cca154112fb0b324eee187bb88190",
-				"dweb:/ipfs/QmVGhRZ2tZBLbRf5vhfMrJuJniLbHF7zL3XEYDgEScrvMT"
+				"bzz-raw://84a1ac9465eb7f797cb9778bb39ca460c870a175499ad75827a8193ee079ea73",
+				"dweb:/ipfs/QmU2YUQ3TXWtxmeMvzcxMtEHF3qoH3TEpznsu8MJy7u9XD"
 			]
 		}
 	},

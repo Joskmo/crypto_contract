@@ -13,7 +13,7 @@ contract EstateAgency {
     }
 
     struct Sale {
-        uint EstateID;
+        uint estateID;
         address owner;
         address newOwner;
         uint price;
@@ -80,13 +80,65 @@ contract EstateAgency {
         estates[estateID].on_sale = true;
     }
 
+    function viewBuyers(uint saleID) public view returns(address[] memory) {
+        require(saleID < sales.length, "Wrong saleID");
+        return sales[saleID].buyers;
+    }
+
+    function viewBids(uint saleID) public view returns(uint[] memory) {
+        require(saleID < sales.length, "Wrong saleID");
+        return sales[saleID].bids;
+    }
+
+    function acceptBid(uint saleID, uint bidID) public payable {
+        require(saleID < sales.length, "Wrong saleID");
+        Sale storage current = sales[saleID];
+        Estate storage object = estates[current.estateID];
+        require(msg.sender == object.owner, "Only for owner");
+        require(bidID < current.buyers.length, "Wrong bidID");
+        require(!object.is_banned, "Estate is banned");
+        require(current.newOwner == address(0), "Sale is closed");
+        for (uint i=0; i<current.buyers.length; i++) {
+            if (i != bidID) {
+                payable(current.buyers[i]).transfer(current.bids[i]);
+            } else {
+                payable(msg.sender).transfer(current.bids[bidID]);
+            }
+        }
+        current.newOwner = current.buyers[bidID];
+        object.owner = current.buyers[bidID];
+        object.on_sale = false;
+    }
+
+    function rejectBid(uint saleID, uint bidID) public {
+        require(saleID < sales.length, "Wrong saleID");
+        Sale storage current = sales[saleID];
+        Estate storage object = estates[current.estateID];
+        require(msg.sender == object.owner, "Only for owner");
+        require(bidID < current.buyers.length, "Wrong bidID");
+        require(!object.is_banned, "Estate is banned");
+        require(current.newOwner == address(0), "Sale is closed");
+        for (uint i=0; i<current.buyers.length; i++) {
+            payable(current.buyers[i]).transfer(current.bids[i]);
+        }
+        current.newOwner = msg.sender;
+        object.on_sale = false;
+    }
+
     // Buyers functions
     function makeBid(uint saleID) public payable {
         require(saleID < sales.length, "Wrong saleID");
-        require(msg.value >= sales[saleID].price, "Price is too low");
-        require(msg.sender != sales[saleID].owner, "SelfSelling");
-        require(sales[saleID].newOwner == address(0), "Sale is closed");
-        
+        Sale storage current = sales[saleID];
+        Estate storage object = estates[current.estateID];
+        require(current.newOwner == address(0), "Sale is closed");
+        require(!object.is_banned, "Estate is banned");
+        require(msg.sender != current.owner, "SelfSelling");
+        require(msg.value >= current.price, "Bid is too low");
+        for (uint i=0; i < current.buyers.length; i++) {
+            require(current.buyers[i] != msg.sender, "You have already made a bid");
+        }
+        current.buyers.push(msg.sender);
+        current.bids.push(msg.value);
     }
 
     // Gift functions
